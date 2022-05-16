@@ -40,6 +40,7 @@
     [task resume];
     
     self.tableView.dataSource = self;
+    self.tableView.rowHeight = 173;
     
 
 }
@@ -65,7 +66,7 @@
     NSDictionary *movie = self.movies[indexPath.row];
     
     NSString *movieTitle = movie[@"title"];
-    NSString *movieSynopsis = movie[@"synopsis"];
+    NSString *movieSynopsis = movie[@"overview"];
         
     cell.titleLabel.text = movieTitle;
     cell.synopsisLabel.text = movieSynopsis;
