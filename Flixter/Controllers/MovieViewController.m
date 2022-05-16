@@ -6,12 +6,13 @@
 //
 
 #import "MovieViewController.h"
+#import "MovieCell.h"
 
 @interface MovieViewController ()
 @property (strong, nonatomic) NSArray *movies;
 @end
 
-@implementation MovieViewController
+@implementation MovieViewController 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,9 +33,13 @@
                self.movies = dataDictionary[@"results"];
                NSLog(@"Results: %@", self.movies);
                // TODO: Reload your table view data
+               
+               [self.tableView reloadData];
            }
        }];
     [task resume];
+    
+    self.tableView.dataSource = self;
     
 
 }
@@ -48,5 +53,25 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+//    return self.movies.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
+    NSDictionary *movie = self.movies[indexPath.row];
+    
+    NSString *movieTitle = movie[@"title"];
+    NSString *movieSynopsis = movie[@"synopsis"];
+        
+    cell.titleLabel.text = movieTitle;
+    cell.synopsisLabel.text = movieSynopsis;
+    
+    
+    return cell;
+}
 
 @end

@@ -15,6 +15,7 @@
 		9903CAAB2832B54300BD9757 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9903CAA92832B54300BD9757 /* LaunchScreen.storyboard */; };
 		9903CAAE2832B54300BD9757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9903CAAD2832B54300BD9757 /* main.m */; };
 		992C19352832C44500A59CD4 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C19342832C44500A59CD4 /* MovieViewController.m */; };
+		992C193A2832E85900A59CD4 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C19392832E85900A59CD4 /* MovieCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		9903CAAD2832B54300BD9757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		992C19332832C44500A59CD4 /* MovieViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
 		992C19342832C44500A59CD4 /* MovieViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
+		992C19382832E85900A59CD4 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
+		992C19392832E85900A59CD4 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,21 +67,39 @@
 		9903CA9A2832B54200BD9757 /* Flixter */ = {
 			isa = PBXGroup;
 			children = (
+				992C19372832E83800A59CD4 /* Models */,
+				992C19362832E82500A59CD4 /* Controllers */,
 				9903CA9B2832B54200BD9757 /* AppDelegate.h */,
 				9903CA9C2832B54200BD9757 /* AppDelegate.m */,
 				9903CA9E2832B54200BD9757 /* SceneDelegate.h */,
 				9903CA9F2832B54200BD9757 /* SceneDelegate.m */,
-				9903CAA12832B54200BD9757 /* ViewController.h */,
-				9903CAA22832B54200BD9757 /* ViewController.m */,
 				9903CAA42832B54200BD9757 /* Main.storyboard */,
 				9903CAA72832B54300BD9757 /* Assets.xcassets */,
 				9903CAA92832B54300BD9757 /* LaunchScreen.storyboard */,
 				9903CAAC2832B54300BD9757 /* Info.plist */,
 				9903CAAD2832B54300BD9757 /* main.m */,
+			);
+			path = Flixter;
+			sourceTree = "<group>";
+		};
+		992C19362832E82500A59CD4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9903CAA12832B54200BD9757 /* ViewController.h */,
+				9903CAA22832B54200BD9757 /* ViewController.m */,
 				992C19332832C44500A59CD4 /* MovieViewController.h */,
 				992C19342832C44500A59CD4 /* MovieViewController.m */,
 			);
-			path = Flixter;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		992C19372832E83800A59CD4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				992C19382832E85900A59CD4 /* MovieCell.h */,
+				992C19392832E85900A59CD4 /* MovieCell.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +174,7 @@
 			files = (
 				9903CAA32832B54200BD9757 /* ViewController.m in Sources */,
 				992C19352832C44500A59CD4 /* MovieViewController.m in Sources */,
+				992C193A2832E85900A59CD4 /* MovieCell.m in Sources */,
 				9903CA9D2832B54200BD9757 /* AppDelegate.m in Sources */,
 				9903CAAE2832B54300BD9757 /* main.m in Sources */,
 				9903CAA02832B54200BD9757 /* SceneDelegate.m in Sources */,
