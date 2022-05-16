@@ -14,6 +14,7 @@
 		9903CAA82832B54300BD9757 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9903CAA72832B54300BD9757 /* Assets.xcassets */; };
 		9903CAAB2832B54300BD9757 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9903CAA92832B54300BD9757 /* LaunchScreen.storyboard */; };
 		9903CAAE2832B54300BD9757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9903CAAD2832B54300BD9757 /* main.m */; };
+		992C19352832C44500A59CD4 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C19342832C44500A59CD4 /* MovieViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		9903CAAA2832B54300BD9757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9903CAAC2832B54300BD9757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9903CAAD2832B54300BD9757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		992C19332832C44500A59CD4 /* MovieViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
+		992C19342832C44500A59CD4 /* MovieViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,8 @@
 				9903CAA92832B54300BD9757 /* LaunchScreen.storyboard */,
 				9903CAAC2832B54300BD9757 /* Info.plist */,
 				9903CAAD2832B54300BD9757 /* main.m */,
+				992C19332832C44500A59CD4 /* MovieViewController.h */,
+				992C19342832C44500A59CD4 /* MovieViewController.m */,
 			);
 			path = Flixter;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9903CAA32832B54200BD9757 /* ViewController.m in Sources */,
+				992C19352832C44500A59CD4 /* MovieViewController.m in Sources */,
 				9903CA9D2832B54200BD9757 /* AppDelegate.m in Sources */,
 				9903CAAE2832B54300BD9757 /* main.m in Sources */,
 				9903CAA02832B54200BD9757 /* SceneDelegate.m in Sources */,
