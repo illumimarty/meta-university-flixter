@@ -6,5 +6,6 @@ target 'Flixter' do
   use_frameworks!
 
   # Pods for Flixter
+  pod 'AFNetworking'
 
 end
