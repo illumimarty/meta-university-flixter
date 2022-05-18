@@ -14,6 +14,8 @@
 		9903CAA82832B54300BD9757 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9903CAA72832B54300BD9757 /* Assets.xcassets */; };
 		9903CAAB2832B54300BD9757 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9903CAA92832B54300BD9757 /* LaunchScreen.storyboard */; };
 		9903CAAE2832B54300BD9757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9903CAAD2832B54300BD9757 /* main.m */; };
+		991CC07E283566B1009839E7 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991CC07D283566B1009839E7 /* GridViewController.m */; };
+		991CC0812835684B009839E7 /* PosterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 991CC0802835684B009839E7 /* PosterCell.m */; };
 		992C19352832C44500A59CD4 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C19342832C44500A59CD4 /* MovieViewController.m */; };
 		992C193A2832E85900A59CD4 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 992C19392832E85900A59CD4 /* MovieCell.m */; };
 		9A355B276A6311524A9112BA /* Pods_Flixter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F00024832F08DC0F9DD408D /* Pods_Flixter.framework */; };
@@ -33,6 +35,10 @@
 		9903CAAA2832B54300BD9757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9903CAAC2832B54300BD9757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9903CAAD2832B54300BD9757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		991CC07C283566B1009839E7 /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		991CC07D283566B1009839E7 /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
+		991CC07F2835684B009839E7 /* PosterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PosterCell.h; sourceTree = "<group>"; };
+		991CC0802835684B009839E7 /* PosterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PosterCell.m; sourceTree = "<group>"; };
 		992C19332832C44500A59CD4 /* MovieViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
 		992C19342832C44500A59CD4 /* MovieViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
 		992C19382832E85900A59CD4 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
@@ -104,6 +110,8 @@
 				9903CAA22832B54200BD9757 /* ViewController.m */,
 				992C19332832C44500A59CD4 /* MovieViewController.h */,
 				992C19342832C44500A59CD4 /* MovieViewController.m */,
+				991CC07C283566B1009839E7 /* GridViewController.h */,
+				991CC07D283566B1009839E7 /* GridViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -113,6 +121,8 @@
 			children = (
 				992C19382832E85900A59CD4 /* MovieCell.h */,
 				992C19392832E85900A59CD4 /* MovieCell.m */,
+				991CC07F2835684B009839E7 /* PosterCell.h */,
+				991CC0802835684B009839E7 /* PosterCell.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,7 +133,6 @@
 				C7DC512997D2A3C36A207EEF /* Pods-Flixter.debug.xcconfig */,
 				AE1A516A7F5F7DEA3F98E4C8 /* Pods-Flixter.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -244,6 +253,8 @@
 				9903CAA32832B54200BD9757 /* ViewController.m in Sources */,
 				992C19352832C44500A59CD4 /* MovieViewController.m in Sources */,
 				992C193A2832E85900A59CD4 /* MovieCell.m in Sources */,
+				991CC07E283566B1009839E7 /* GridViewController.m in Sources */,
+				991CC0812835684B009839E7 /* PosterCell.m in Sources */,
 				9903CA9D2832B54200BD9757 /* AppDelegate.m in Sources */,
 				9903CAAE2832B54300BD9757 /* main.m in Sources */,
 				9903CAA02832B54200BD9757 /* SceneDelegate.m in Sources */,

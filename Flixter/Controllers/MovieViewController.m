@@ -33,9 +33,8 @@
 
                // TODO: Store the movies in a property to use elsewhere
                self.movies = dataDictionary[@"results"];
-               NSLog(@"Results: %@", self.movies);
+//               NSLog(@"Results: %@", self.movies);
                // TODO: Reload your table view data
-               
                [self.tableView reloadData];
            }
        }];
