@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieViewController : UIViewController <UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 

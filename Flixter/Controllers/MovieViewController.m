@@ -14,11 +14,13 @@
 @property (strong, nonatomic) NSArray *movies;
 @end
 
-@implementation MovieViewController 
+@implementation MovieViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.activityIndicator startAnimating];
     
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=35a7cf82e598703e220a9b9924350685"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -39,6 +41,8 @@
            }
        }];
     [task resume];
+    
+    [self.activityIndicator stopAnimating];
 
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 173;

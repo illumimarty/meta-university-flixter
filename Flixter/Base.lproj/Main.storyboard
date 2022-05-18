@@ -134,24 +134,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-Ye-O13">
+                                <rect key="frame" x="204" y="453" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6ze-Yn-OR9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Hc7-Ye-O13" firstAttribute="leading" secondItem="6ze-Yn-OR9" secondAttribute="leading" constant="204" id="0w7-Gc-9Mr"/>
                             <constraint firstItem="2qR-L4-JDX" firstAttribute="top" secondItem="6ze-Yn-OR9" secondAttribute="top" id="HoN-D4-Yq7"/>
+                            <constraint firstItem="6ze-Yn-OR9" firstAttribute="trailing" secondItem="Hc7-Ye-O13" secondAttribute="trailing" constant="204" id="kRE-lL-COj"/>
                             <constraint firstItem="2qR-L4-JDX" firstAttribute="trailing" secondItem="6ze-Yn-OR9" secondAttribute="trailing" id="lJH-2o-0Tn"/>
+                            <constraint firstItem="6ze-Yn-OR9" firstAttribute="bottom" secondItem="Hc7-Ye-O13" secondAttribute="bottom" constant="370" id="oFA-0z-pfs"/>
                             <constraint firstItem="2qR-L4-JDX" firstAttribute="bottom" secondItem="6ze-Yn-OR9" secondAttribute="bottom" id="oGT-aN-riO"/>
+                            <constraint firstItem="Hc7-Ye-O13" firstAttribute="top" secondItem="6ze-Yn-OR9" secondAttribute="top" constant="409" id="ulM-47-8bV"/>
                             <constraint firstItem="2qR-L4-JDX" firstAttribute="leading" secondItem="6ze-Yn-OR9" secondAttribute="leading" id="uqG-Ry-s5l"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Now Playing" image="now_playing_tabbar_item" id="gyq-IW-H2R"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Hc7-Ye-O13" id="4ah-LE-y5s"/>
                         <outlet property="tableView" destination="2qR-L4-JDX" id="YiM-dn-0Gr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VQ7-NG-ZVT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="279.71014492753625" y="93.75"/>
+            <point key="canvasLocation" x="278.9719626168224" y="93.30453563714903"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BhN-CU-aHQ">
