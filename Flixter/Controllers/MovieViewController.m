@@ -40,10 +40,13 @@
            }
        }];
     [task resume];
-    
+
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 173;
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:refreshControl atIndex:0];
 
 }
 
@@ -81,5 +84,32 @@
     
     return cell;
 }
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+
+        // Create NSURL and NSURLRequest
+        NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=35a7cf82e598703e220a9b9924350685"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                                                              delegate:nil
+                                                         delegateQueue:[NSOperationQueue mainQueue]];
+        session.configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    
+           // ... Use the new data to update the data source ...
+
+           // Reload the tableView now that there is new data
+            [self.tableView reloadData];
+
+           // Tell the refreshControl to stop spinning
+            [refreshControl endRefreshing];
+
+        }];
+    
+        [task resume];
+}
+
 
 @end
