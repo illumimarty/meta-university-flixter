@@ -47,6 +47,7 @@
                                                 <constraint firstItem="JOx-RT-3ic" firstAttribute="centerY" secondItem="KMa-uc-CCq" secondAttribute="centerY" id="nZJ-nz-He8"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <size key="customSize" width="161" height="217"/>
                                         <connections>
                                             <outlet property="posterImageView" destination="JOx-RT-3ic" id="YZH-LP-pxV"/>
@@ -67,6 +68,7 @@
                     <tabBarItem key="tabBarItem" title="Gallery" image="airplayvideo" catalog="system" id="KUG-hH-kv0"/>
                     <connections>
                         <outlet property="collectionView" destination="iRP-Ju-UzR" id="QQs-7T-vkK"/>
+                        <outlet property="flowLayout" destination="8p6-kq-iTI" id="g3D-i2-3Mt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -159,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VQ7-NG-ZVT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="278.9719626168224" y="93.30453563714903"/>
+            <point key="canvasLocation" x="499" y="-45"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BhN-CU-aHQ">
@@ -186,6 +188,9 @@
         <image name="now_playing_tabbar_item" width="21" height="21"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

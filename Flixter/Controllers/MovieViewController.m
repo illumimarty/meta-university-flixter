@@ -28,6 +28,26 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
                NSLog(@"%@", [error localizedDescription]);
+               
+               // Creating the Alert Controller and actions
+               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"This is a title" message:@"This is a subtitle" preferredStyle:(UIAlertControllerStyleAlert)];
+               UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                   // dismisses the view
+               }];
+               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                   // handles response here
+               }];
+               
+               // Adding actions to alert controller
+               [alert addAction:cancelAction];
+               [alert addAction:okAction];
+               
+               [self presentViewController:alert animated:YES completion:^{
+                   // code 
+               }];
+               
+               
+               
            }
            else {
                 // TODO: Get the array of movies

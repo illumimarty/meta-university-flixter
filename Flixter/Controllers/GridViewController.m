@@ -9,8 +9,9 @@
 #import "PosterCell.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface GridViewController ()
+@interface GridViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) NSArray *movies;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @end
 
 @implementation GridViewController
@@ -45,6 +46,15 @@
     self.collectionView.dataSource = self;
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.flowLayout.minimumLineSpacing = 10;
+    self.flowLayout.minimumInteritemSpacing = 0;
+    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.movies.count;
 }
@@ -63,6 +73,16 @@
     [cell.posterImageView setImageWithURL: posterUrl];
     
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    int totalwidth = self.collectionView.bounds.size.width;
+    int numberOfCellsPerRow = 3;
+    int widthDimensions = (CGFloat)(totalwidth / numberOfCellsPerRow);
+    int heightDimensions = widthDimensions * 1.2;
+    return CGSizeMake(widthDimensions, heightDimensions);
+    
 }
 
 
