@@ -155,6 +155,33 @@
     NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
     NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
     
+    NSURLRequest *request = [NSURLRequest requestWithURL:posterUrl];
+
+    __weak MovieCell *weakSelf = cell;
+    [cell.posterImage setImageWithURLRequest:request placeholderImage:nil
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                        
+                                        // imageResponse will be nil if the image is cached
+                                        if (imageResponse) {
+                                            NSLog(@"Image was NOT cached, fade in image");
+                                            weakSelf.posterImage.alpha = 0.0;
+                                            weakSelf.posterImage.image = image;
+                                            
+                                            //Animate UIImageView back to alpha 1 over 0.3sec
+                                            [UIView animateWithDuration:0.3 animations:^{
+                                                weakSelf.posterImage.alpha = 1.0;
+                                            }];
+                                        }
+                                        else {
+                                            NSLog(@"Image was cached so just update the image");
+                                            weakSelf.posterImage.image = image;
+                                        }
+                                    }
+                                    failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {
+                                        // do something for the failure condition
+                                    }];
+    
+    
     cell.titleLabel.text = movieTitle;
     cell.synopsisLabel.text = movieSynopsis;
     [cell.posterImage setImageWithURL: posterUrl];
