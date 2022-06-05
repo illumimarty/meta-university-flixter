@@ -46,11 +46,11 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-//    self.view.backgroundColor = UIColorFromRGB(0x121212);
-//    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
-//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-//    self.collectionView.backgroundColor = UIColorFromRGB(0x181818);
+    self.view.backgroundColor = UIColorFromRGB(0x121212);
+    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.collectionView.backgroundColor = UIColorFromRGB(0x181818);
 }
 
 - (void)viewDidLayoutSubviews {

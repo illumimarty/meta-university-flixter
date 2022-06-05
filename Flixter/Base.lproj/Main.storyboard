@@ -85,9 +85,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2qR-L4-JDX">
                                 <rect key="frame" x="0.0" y="88" width="428" height="755"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="d6D-56-eRM">
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="173" id="pco-IP-PiD" customClass="MovieCell">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="173"/>
+                                        <rect key="frame" x="0.0" y="88.666666030883789" width="428" height="173"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pco-IP-PiD" id="hux-kh-ilU">
                                             <rect key="frame" x="0.0" y="0.0" width="428" height="173"/>
@@ -154,6 +159,7 @@
                     <navigationItem key="navigationItem" title="Now Playing" id="z35-W8-R1T"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Hc7-Ye-O13" id="4ah-LE-y5s"/>
+                        <outlet property="mySearchBar" destination="d6D-56-eRM" id="viK-8W-ngM"/>
                         <outlet property="tableView" destination="2qR-L4-JDX" id="YiM-dn-0Gr"/>
                     </connections>
                 </viewController>

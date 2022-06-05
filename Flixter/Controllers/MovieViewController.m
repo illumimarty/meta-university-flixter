@@ -11,10 +11,9 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-
-
 @interface MovieViewController ()
 @property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSArray *filteredMovies;
 @end
 
 @implementation MovieViewController
@@ -24,7 +23,8 @@
     // Do any additional setup after loading the view.
     
     [self.activityIndicator startAnimating];
-    
+    self.filteredMovies = self.movies;
+
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=35a7cf82e598703e220a9b9924350685"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -55,6 +55,7 @@
 
                // TODO: Store the movies in a property to use elsewhere
                self.movies = dataDictionary[@"results"];
+               self.filteredMovies = dataDictionary[@"results"];
 //               NSLog(@"Results: %@", self.movies);
                // TODO: Reload your table view data
                [self.tableView reloadData];
@@ -66,6 +67,7 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.mySearchBar.delegate = self;
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -77,6 +79,8 @@
     self.tableView.backgroundColor = UIColorFromRGB(0x181818);
     self.tabBarController.tabBar.barTintColor = UIColorFromRGB(0x121212);
     self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
+    self.mySearchBar.barTintColor = UIColorFromRGB(0x181818);
+    self.mySearchBar.searchTextField.textColor = UIColor.whiteColor;
 //    self.tabBarController.moreNavigationController.navigationBar.tintColor =
 //    navigationController.navigationBar.tintColor = [UIColor blackColor];
 
@@ -90,6 +94,26 @@
 
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length != 0) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSDictionary *evaluatedObject, NSDictionary *bindings) {
+            NSString *title = evaluatedObject[@"title"];
+            return [title containsString:searchText];
+        }];
+        self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
+        
+        NSLog(@"%@", self.filteredMovies);
+        
+    }
+    else {
+        self.filteredMovies = self.movies;
+    }
+    
+    [self.tableView reloadData];
+ 
+}
+
 /*
 #pragma mark - Navigation
 
@@ -101,13 +125,13 @@
 */
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.movies.count;
+    return self.filteredMovies.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.filteredMovies[indexPath.row];
     
     NSString *movieTitle = movie[@"title"];
     NSString *movieSynopsis = movie[@"overview"];
