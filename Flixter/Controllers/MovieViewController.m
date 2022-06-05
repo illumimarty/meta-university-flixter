@@ -23,8 +23,35 @@
     // Do any additional setup after loading the view.
     
     [self.activityIndicator startAnimating];
-    self.filteredMovies = self.movies;
+    [self fetchMovies];
+    [self.activityIndicator stopAnimating];
+    [self formatInterface];
 
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.mySearchBar.delegate = self;
+
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:refreshControl atIndex:0];
+}
+
+- (void)formatInterface {
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.view.backgroundColor = UIColorFromRGB(0x121212);
+    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.tableView.backgroundColor = UIColorFromRGB(0x181818);
+    self.tabBarController.tabBar.barTintColor = UIColorFromRGB(0x121212);
+    self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
+    self.mySearchBar.barTintColor = UIColorFromRGB(0x181818);
+    self.mySearchBar.searchTextField.textColor = UIColor.whiteColor;
+//    self.tabBarController.moreNavigationController.navigationBar.tintColor =
+//    navigationController.navigationBar.tintColor = [UIColor blackColor];
+}
+
+- (void)fetchMovies {
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=35a7cf82e598703e220a9b9924350685"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -46,7 +73,7 @@
                [alert addAction:okAction];
                
                [self presentViewController:alert animated:YES completion:^{
-                   // code 
+                   // code
                }];
            }
            else {
@@ -56,62 +83,28 @@
                // TODO: Store the movies in a property to use elsewhere
                self.movies = dataDictionary[@"results"];
                self.filteredMovies = dataDictionary[@"results"];
-//               NSLog(@"Results: %@", self.movies);
+
                // TODO: Reload your table view data
                [self.tableView reloadData];
            }
        }];
     [task resume];
-    
-    [self.activityIndicator stopAnimating];
-
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.mySearchBar.delegate = self;
-
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
-    
-    self.view.backgroundColor = UIColorFromRGB(0x121212);
-    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.tableView.backgroundColor = UIColorFromRGB(0x181818);
-    self.tabBarController.tabBar.barTintColor = UIColorFromRGB(0x121212);
-    self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
-    self.mySearchBar.barTintColor = UIColorFromRGB(0x181818);
-    self.mySearchBar.searchTextField.textColor = UIColor.whiteColor;
-//    self.tabBarController.moreNavigationController.navigationBar.tintColor =
-//    navigationController.navigationBar.tintColor = [UIColor blackColor];
-
-
-
-    
-    
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
-
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length != 0) {
-        
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSDictionary *evaluatedObject, NSDictionary *bindings) {
             NSString *title = evaluatedObject[@"title"];
             return [title containsString:searchText];
         }];
         self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
-        
         NSLog(@"%@", self.filteredMovies);
-        
     }
     else {
         self.filteredMovies = self.movies;
     }
     
     [self.tableView reloadData];
- 
 }
 
 /*
@@ -176,10 +169,6 @@
         }];
     
         [task resume];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
 }
 
 @end
