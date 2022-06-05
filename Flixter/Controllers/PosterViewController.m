@@ -17,7 +17,52 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.posterImageView setImageWithURL:self.movieURL];
+//    [self.posterImageView setImageWithURL:self.movieURL];
+    
+    NSString *posterPath = self.movie[@"poster_path"];
+//    NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
+    
+    NSURL *urlSmall = [NSURL URLWithString:[NSString stringWithFormat:@"https://image.tmdb.org/t/p/w185%@", posterPath]];
+    NSURL *urlLarge = [NSURL URLWithString:[NSString stringWithFormat:@"https://image.tmdb.org/t/p/w500%@", posterPath]];
+
+    NSURLRequest *requestSmall = [NSURLRequest requestWithURL:urlSmall];
+    NSURLRequest *requestLarge = [NSURLRequest requestWithURL:urlLarge];
+
+    __weak PosterViewController *weakSelf = self;
+
+    [self.posterImageView setImageWithURLRequest:requestSmall
+                          placeholderImage:nil
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *smallImage) {
+                                       
+                                       // smallImageResponse will be nil if the smallImage is already available
+                                       // in cache (might want to do something smarter in that case).
+                                       weakSelf.posterImageView.alpha = 0.0;
+                                       weakSelf.posterImageView.image = smallImage;
+                                       
+                                       [UIView animateWithDuration:0.3
+                                                        animations:^{
+                                                            
+                                                            weakSelf.posterImageView.alpha = 1.0;
+                                                            
+                                                        } completion:^(BOOL finished) {
+                                                            // The AFNetworking ImageView Category only allows one request to be sent at a time
+                                                            // per ImageView. This code must be in the completion block.
+                                                            [weakSelf.posterImageView setImageWithURLRequest:requestLarge
+                                                                                  placeholderImage:smallImage
+                                                                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage * largeImage) {
+                                                                                                weakSelf.posterImageView.image = largeImage;
+                                                                                  }
+                                                                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                                               // do something for the failure condition of the large image request
+                                                                                               // possibly setting the ImageView's image to a default image
+                                                                                           }];
+                                                        }];
+                                   }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                       // do something for the failure condition
+                                       // possibly try to get the large image
+                                   }];
+    
     self.view.backgroundColor = UIColorFromRGB(0x121212);
     self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];

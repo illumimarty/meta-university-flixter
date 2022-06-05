@@ -122,14 +122,14 @@
         
         
         NSDictionary *movie = self.filteredMovies[indexPath.row];
-
+        vc.movie = movie;
         
-        NSString *baseUrl = @"https://image.tmdb.org/t/p/original";
-        NSString *posterPath = movie[@"poster_path"];
-        NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
-        NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
-        
-        vc.movieURL = posterUrl;
+//        NSString *baseUrl = @"https://image.tmdb.org/t/p/original";
+//        NSString *posterPath = movie[@"poster_path"];
+//        NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
+//        NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
+//
+//        vc.movieURL = posterUrl;
         
 //        [vc.posterImageView setImageWithURL:posterUrl];
     }
