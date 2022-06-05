@@ -9,6 +9,9 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
 
 @interface MovieViewController ()
 @property (strong, nonatomic) NSArray *movies;
@@ -45,9 +48,6 @@
                [self presentViewController:alert animated:YES completion:^{
                    // code 
                }];
-               
-               
-               
            }
            else {
                 // TODO: Get the array of movies
@@ -65,7 +65,24 @@
     [self.activityIndicator stopAnimating];
 
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 173;
+    self.tableView.delegate = self;
+
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    
+    self.view.backgroundColor = UIColorFromRGB(0x121212);
+    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.tableView.backgroundColor = UIColorFromRGB(0x181818);
+    self.tabBarController.tabBar.barTintColor = UIColorFromRGB(0x121212);
+    self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
+//    self.tabBarController.moreNavigationController.navigationBar.tintColor =
+//    navigationController.navigationBar.tintColor = [UIColor blackColor];
+
+
+
+    
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -104,6 +121,9 @@
     cell.synopsisLabel.text = movieSynopsis;
     [cell.posterImage setImageWithURL: posterUrl];
     
+    cell.titleLabel.textColor = UIColor.whiteColor;
+    cell.synopsisLabel.textColor = UIColor.whiteColor;
+
     
     return cell;
 }
@@ -134,5 +154,8 @@
         [task resume];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 @end

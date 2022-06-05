@@ -9,6 +9,8 @@
 #import "PosterCell.h"
 #import "UIImageView+AFNetworking.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface GridViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) NSArray *movies;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
@@ -44,6 +46,11 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+//    self.view.backgroundColor = UIColorFromRGB(0x121212);
+//    self.navigationController.navigationBar.backgroundColor = UIColorFromRGB(0x181818);
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.collectionView.backgroundColor = UIColorFromRGB(0x181818);
 }
 
 - (void)viewDidLayoutSubviews {
