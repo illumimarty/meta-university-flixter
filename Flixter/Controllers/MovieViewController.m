@@ -61,16 +61,13 @@
                NSLog(@"%@", [error localizedDescription]);
                
                // Creating the Alert Controller and actions
-               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"This is a title" message:@"This is a subtitle" preferredStyle:(UIAlertControllerStyleAlert)];
-               UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                   // dismisses the view
-               }];
+               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No network connection" message:@"You are not connected to the internet" preferredStyle:(UIAlertControllerStyleAlert)];
+
                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                    // handles response here
                }];
                
                // Adding actions to alert controller
-               [alert addAction:cancelAction];
                [alert addAction:okAction];
                
                [self presentViewController:alert animated:YES completion:^{
