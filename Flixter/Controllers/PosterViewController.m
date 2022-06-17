@@ -71,6 +71,11 @@
     self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
 }
 
+- (void) mlMagic {
+    // do magic
+    // teleport
+}
+
 /*
 #pragma mark - Navigation
 
