@@ -216,4 +216,10 @@
         [task resume];
 }
 
+- (void)showTrailer {
+    // do something
+    // maybe show a trailer pls
+    // return nothing
+}
+
 @end
