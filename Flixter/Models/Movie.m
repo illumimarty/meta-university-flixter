@@ -17,10 +17,8 @@
     self.posterPath = dictionary[@"poster_path"];
     
     NSString *baseUrl = @"https://image.tmdb.org/t/p/w185";
-//    NSString *posterPath = dictionary[@"poster_path"];
     NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, self.posterPath];
     self.posterUrl = [NSURL URLWithString:posterUrlString];
-    
     
     return self;
 }
