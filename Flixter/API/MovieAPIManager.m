@@ -32,45 +32,17 @@
            if (error != nil) {
                NSLog(@"%@", [error localizedDescription]);
                
-//               // Creating the Alert Controller and actions
-//               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No network connection" message:@"You are not connected to the internet" preferredStyle:(UIAlertControllerStyleAlert)];
-//
-//               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                   // handles response here
-//               }];
-//
-//               // Adding actions to alert controller
-//               [alert addAction:okAction];
-//
-//               [self presentViewController:alert animated:YES completion:^{
-//                   // code
-//               }];
+             
            }
            else {
                 // TODO: Get the array of movies
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 
                // TODO: Store the movies in a property to use elsewhere
-
-               
                // Initialize space for movies array
                
                NSArray *dictionaries = dataDictionary[@"results"];
                NSArray *movies = [Movie moviesWithDictionaries:dictionaries];
-               
-//               if (!self.movies) {
-//                   self.movies = [[NSMutableArray alloc] init];
-//               }
-               
-//               for (NSDictionary *movie in dataDictionary[@"results"]) {
-//                   Movie *newMovie = [[Movie alloc] initWithDictionary:movie];
-//                   [self.movies addObject:newMovie];
-//               }
-               
-//               self.filteredMovies = self.movies;
-
-               // TODO: Reload your table view data
-//               [self.tableView reloadData];
                
                completion(movies, nil);
            }

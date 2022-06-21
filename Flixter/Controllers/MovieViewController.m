@@ -45,9 +45,25 @@
     
     MovieAPIManager *manager = [MovieAPIManager new];
     [manager fetchMovies:^(NSArray *movies, NSError *error) {
-        self.movies = (NSMutableArray *)movies;
-        self.filteredMovies = self.movies; // this stays here, not in APIManager
-        [self.tableView reloadData];
+        if (error) {
+            // Creating the Alert Controller and actions
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No network connection" message:@"You are not connected to the internet" preferredStyle:(UIAlertControllerStyleAlert)];
+
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // dismiss when button pressed
+            }];
+
+            // Adding actions to alert controller
+            [alert addAction:okAction];
+
+            [self presentViewController:alert animated:YES completion:^{
+                // dismiss when button pressed
+            }];
+        } else {
+            self.movies = (NSMutableArray *)movies;
+            self.filteredMovies = self.movies; // this stays here, not in APIManager
+            [self.tableView reloadData];
+        }
     }];
     [self.activityIndicator stopAnimating];
 }
