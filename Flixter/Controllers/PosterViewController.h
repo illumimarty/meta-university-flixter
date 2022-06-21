@@ -7,12 +7,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UIImageView+AFNetworking.h"
+#import "Movie.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PosterViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
-@property (strong, nonatomic) NSDictionary *movie;
+@property (strong, nonatomic) Movie *movie;
 @end
 
 NS_ASSUME_NONNULL_END

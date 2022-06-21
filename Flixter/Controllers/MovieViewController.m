@@ -9,11 +9,13 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "PosterViewController.h"
+#import "Movie.h"
+#import "MovieAPIManager.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface MovieViewController ()
-@property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSMutableArray *movies;
 @property (strong, nonatomic) NSArray *filteredMovies;
 @end
 
@@ -23,19 +25,49 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.activityIndicator startAnimating];
     [self fetchMovies];
-    [self.activityIndicator stopAnimating];
     [self formatInterface];
+    [self initalizeRefreshControl];
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.mySearchBar.delegate = self;
+}
 
+- (void)initalizeRefreshControl {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
+
+- (void)fetchMovies {
+    [self.activityIndicator startAnimating];
+    
+    MovieAPIManager *manager = [MovieAPIManager new];
+    [manager fetchMovies:^(NSArray *movies, NSError *error) {
+        if (error) {
+            // Creating the Alert Controller and actions
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No network connection" message:@"You are not connected to the internet" preferredStyle:(UIAlertControllerStyleAlert)];
+
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // dismiss when button pressed
+            }];
+
+            // Adding actions to alert controller
+            [alert addAction:okAction];
+
+            [self presentViewController:alert animated:YES completion:^{
+                // dismiss when button pressed
+            }];
+        } else {
+            self.movies = (NSMutableArray *)movies;
+            self.filteredMovies = self.movies; // this stays here, not in APIManager
+            [self.tableView reloadData];
+        }
+    }];
+    [self.activityIndicator stopAnimating];
+}
+
 
 - (void)formatInterface {
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -48,51 +80,12 @@
     self.tabBarController.tabBar.tintColor = UIColor.whiteColor;
     self.mySearchBar.barTintColor = UIColorFromRGB(0x181818);
     self.mySearchBar.searchTextField.textColor = UIColor.whiteColor;
-//    self.tabBarController.moreNavigationController.navigationBar.tintColor =
-//    navigationController.navigationBar.tintColor = [UIColor blackColor];
-}
-
-- (void)fetchMovies {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=35a7cf82e598703e220a9b9924350685"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-               
-               // Creating the Alert Controller and actions
-               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No network connection" message:@"You are not connected to the internet" preferredStyle:(UIAlertControllerStyleAlert)];
-
-               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                   // handles response here
-               }];
-               
-               // Adding actions to alert controller
-               [alert addAction:okAction];
-               
-               [self presentViewController:alert animated:YES completion:^{
-                   // code
-               }];
-           }
-           else {
-                // TODO: Get the array of movies
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-
-               // TODO: Store the movies in a property to use elsewhere
-               self.movies = dataDictionary[@"results"];
-               self.filteredMovies = dataDictionary[@"results"];
-
-               // TODO: Reload your table view data
-               [self.tableView reloadData];
-           }
-       }];
-    [task resume];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length != 0) {
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSDictionary *evaluatedObject, NSDictionary *bindings) {
-            NSString *title = evaluatedObject[@"title"];
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Movie *evaluatedObject, NSDictionary *bindings) {
+            NSString *title = evaluatedObject.title;
             return [title containsString:searchText];
         }];
         self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
@@ -115,23 +108,12 @@
     
     if ([[segue identifier] isEqualToString:@"posterSegue"]) {
         PosterViewController *vc = [segue destinationViewController];
+        
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        
-        
-        NSDictionary *movie = self.filteredMovies[indexPath.row];
+        Movie *movie = self.filteredMovies[indexPath.row];
+
         vc.movie = movie;
-        
-//        NSString *baseUrl = @"https://image.tmdb.org/t/p/original";
-//        NSString *posterPath = movie[@"poster_path"];
-//        NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
-//        NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
-//
-//        vc.movieURL = posterUrl;
-        
-//        [vc.posterImageView setImageWithURL:posterUrl];
     }
-    
-    
 }
 
 
@@ -142,17 +124,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
-    NSDictionary *movie = self.filteredMovies[indexPath.row];
     
-    NSString *movieTitle = movie[@"title"];
-    NSString *movieSynopsis = movie[@"overview"];
+    cell.movie = self.filteredMovies[indexPath.row];
     
-    NSString *baseUrl = @"https://image.tmdb.org/t/p/w185";
-    NSString *posterPath = movie[@"poster_path"];
-    NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
-    NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:posterUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:cell.movie.posterUrl];
 
     __weak MovieCell *weakSelf = cell;
     [cell.posterImage setImageWithURLRequest:request placeholderImage:nil
@@ -179,13 +154,7 @@
                                     }];
     
     
-    cell.titleLabel.text = movieTitle;
-    cell.synopsisLabel.text = movieSynopsis;
-    [cell.posterImage setImageWithURL: posterUrl];
-    
-    cell.titleLabel.textColor = UIColor.whiteColor;
-    cell.synopsisLabel.textColor = UIColor.whiteColor;
-
+    [cell setMovie:cell.movie];
     
     return cell;
 }
@@ -214,12 +183,6 @@
         }];
     
         [task resume];
-}
-
-- (void)showTrailer {
-    // do something
-    // maybe show a trailer pls
-    // return nothing
 }
 
 @end

@@ -19,7 +19,8 @@
     
 //    [self.posterImageView setImageWithURL:self.movieURL];
     
-    NSString *posterPath = self.movie[@"poster_path"];
+    NSString *posterPath = self.movie.posterPath;
+    
 //    NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
     
     NSURL *urlSmall = [NSURL URLWithString:[NSString stringWithFormat:@"https://image.tmdb.org/t/p/w185%@", posterPath]];
