@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9505E9412861921400B3D4CA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 9505E9402861921400B3D4CA /* Movie.m */; };
 		95B9B424284D019A00E899C0 /* PosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B9B423284D019A00E899C0 /* PosterViewController.m */; };
 		9903CA9D2832B54200BD9757 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9903CA9C2832B54200BD9757 /* AppDelegate.m */; };
 		9903CAA02832B54200BD9757 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9903CA9F2832B54200BD9757 /* SceneDelegate.m */; };
@@ -24,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		1F00024832F08DC0F9DD408D /* Pods_Flixter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flixter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9505E93F2861921400B3D4CA /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		9505E9402861921400B3D4CA /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		95B9B422284D019A00E899C0 /* PosterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PosterViewController.h; sourceTree = "<group>"; };
 		95B9B423284D019A00E899C0 /* PosterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PosterViewController.m; sourceTree = "<group>"; };
 		9903CA982832B54200BD9757 /* Flixter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flixter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +131,8 @@
 				992C19392832E85900A59CD4 /* MovieCell.m */,
 				991CC07F2835684B009839E7 /* PosterCell.h */,
 				991CC0802835684B009839E7 /* PosterCell.m */,
+				9505E93F2861921400B3D4CA /* Movie.h */,
+				9505E9402861921400B3D4CA /* Movie.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			files = (
 				9903CAA32832B54200BD9757 /* ViewController.m in Sources */,
 				992C19352832C44500A59CD4 /* MovieViewController.m in Sources */,
+				9505E9412861921400B3D4CA /* Movie.m in Sources */,
 				992C193A2832E85900A59CD4 /* MovieCell.m in Sources */,
 				991CC07E283566B1009839E7 /* GridViewController.m in Sources */,
 				991CC0812835684B009839E7 /* PosterCell.m in Sources */,

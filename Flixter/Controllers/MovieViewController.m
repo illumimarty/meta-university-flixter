@@ -9,11 +9,12 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "PosterViewController.h"
+#import "Movie.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface MovieViewController ()
-@property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSMutableArray *movies;
 @property (strong, nonatomic) NSArray *filteredMovies;
 @end
 
@@ -79,8 +80,23 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 
                // TODO: Store the movies in a property to use elsewhere
-               self.movies = dataDictionary[@"results"];
-               self.filteredMovies = dataDictionary[@"results"];
+//               self.movies = dataDictionary[@"results"];
+//               self.filteredMovies = dataDictionary[@"results"];
+               
+               if (!self.movies) {
+                   self.movies = [[NSMutableArray alloc] init];
+               }
+               
+               
+               for (NSDictionary *movie in dataDictionary[@"results"]) {
+                   Movie *newMovie = [[Movie alloc] initWithDictionary:movie];
+                   
+                   [self.movies addObject:newMovie];
+                   
+                   NSLog(@"%@", self.movies);
+               }
+               
+               self.filteredMovies = self.movies;
 
                // TODO: Reload your table view data
                [self.tableView reloadData];
@@ -115,20 +131,11 @@
     
     if ([[segue identifier] isEqualToString:@"posterSegue"]) {
         PosterViewController *vc = [segue destinationViewController];
+        
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        
-        
-        NSDictionary *movie = self.filteredMovies[indexPath.row];
+        Movie *movie = self.filteredMovies[indexPath.row];
+
         vc.movie = movie;
-        
-//        NSString *baseUrl = @"https://image.tmdb.org/t/p/original";
-//        NSString *posterPath = movie[@"poster_path"];
-//        NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
-//        NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
-//
-//        vc.movieURL = posterUrl;
-        
-//        [vc.posterImageView setImageWithURL:posterUrl];
     }
     
     
@@ -142,17 +149,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
-    NSDictionary *movie = self.filteredMovies[indexPath.row];
     
-    NSString *movieTitle = movie[@"title"];
-    NSString *movieSynopsis = movie[@"overview"];
+    cell.movie = self.filteredMovies[indexPath.row];
     
-    NSString *baseUrl = @"https://image.tmdb.org/t/p/w185";
-    NSString *posterPath = movie[@"poster_path"];
-    NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
-    NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
+//    [cell setMovie: self.movies[indexPath.row]];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:posterUrl];
+//    Movie *movie = self.filteredMovies[indexPath.row];
+//    NSDictionary *movie = self.filteredMovies[indexPath.row];
+    
+//    NSString *movieTitle = movie[@"title"];
+//    NSString *movieSynopsis = movie[@"overview"];
+//
+//    NSString *baseUrl = @"https://image.tmdb.org/t/p/w185";
+//    NSString *posterPath = movie[@"poster_path"];
+//    NSString *posterUrlString = [NSString stringWithFormat: @"%@%@", baseUrl, posterPath];
+//    NSURL *posterUrl = [NSURL URLWithString:posterUrlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:cell.movie.posterUrl];
 
     __weak MovieCell *weakSelf = cell;
     [cell.posterImage setImageWithURLRequest:request placeholderImage:nil
@@ -179,12 +192,8 @@
                                     }];
     
     
-    cell.titleLabel.text = movieTitle;
-    cell.synopsisLabel.text = movieSynopsis;
-    [cell.posterImage setImageWithURL: posterUrl];
+    [cell setMovie:cell.movie];
     
-    cell.titleLabel.textColor = UIColor.whiteColor;
-    cell.synopsisLabel.textColor = UIColor.whiteColor;
 
     
     return cell;
